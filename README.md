@@ -15,6 +15,12 @@ The model was trained using the UCI Heart Disease dataset and deployed using Fla
 ├── .dockerignore                # Files ignored in Docker build
 └── requirements.txt             # Python dependencie
 
+firstly clone the repository and move to that path
+```bash
+git clone https://github.com/Rajesh-22114/heart_disease_detection/tree/main
+cd heart_disease_detection
+```
+
 ## 🐳 Run the Project Using Docker
 
 ### **1️⃣ Build the Docker image**
@@ -84,5 +90,6 @@ Example output:
   "heart_disease_probability": 0.82
 
 }
+
 
 
