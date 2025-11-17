@@ -84,11 +84,11 @@ Run it in a separate terminal:
 Example output:
 
 {
-  "prediction": True docker run --rm -p 8888:8888 heart-midterm
-,
+  "prediction": True,
   "heart_disease_probability": 0.82
 
 }
+
 
 
 
