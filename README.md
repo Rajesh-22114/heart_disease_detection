@@ -17,7 +17,7 @@ The model was trained using the UCI Heart Disease dataset and deployed using Fla
 
 firstly clone the repository and move to that path
 ```bash
-git clone https://github.com/Rajesh-22114/heart_disease_detection/tree/main
+git clone https://github.com/Rajesh-22114/heart_disease_detection
 cd heart_disease_detection
 ```
 
@@ -89,6 +89,7 @@ Example output:
   "heart_disease_probability": 0.82
 
 }
+
 
 
 
