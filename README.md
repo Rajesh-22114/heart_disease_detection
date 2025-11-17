@@ -22,6 +22,7 @@ Open a terminal in the project folder and run:
 
 ```bash
 docker build -t heart-midterm .
+```
 
 
 
@@ -29,6 +30,7 @@ docker build -t heart-midterm .
 2️⃣ Run the Docker container
 ```bash
 docker run --rm -p 8888:8888 heart-midterm
+```
 
 
 
@@ -45,6 +47,7 @@ The API will now be running at:
 Run it in a separate terminal:
 ```bash
         python result.py
+```
 
 
 
@@ -81,4 +84,5 @@ Example output:
   "heart_disease_probability": 0.82
 
 }
+
 
