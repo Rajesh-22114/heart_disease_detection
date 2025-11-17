@@ -43,12 +43,11 @@ docker run --rm -p 8888:8888 heart-midterm
 
 
 The API will now be running at:
-
-       👉 http://127.0.0.1:8888/predict
+👉 http://127.0.0.1:8888/predict
 
 🧪 Testing the API (Modify Inputs Inside result.py)
 
-       Use the provided result.py script to send test inputs to the API.
+ Use the provided result.py script to send test inputs to the API.
 
 Run it in a separate terminal:
 ```bash
@@ -90,6 +89,7 @@ Example output:
   "heart_disease_probability": 0.82
 
 }
+
 
 
 
