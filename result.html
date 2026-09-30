@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediction Analysis & Results | CardioShield</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top API Status Bar -->
+  <div class="api-status-banner">
+    <div class="container status-content">
+      <span class="status-dot" id="apiStatusDot"></span>
+      <span id="apiStatusText">Checking Flask API Connection...</span>
+    </div>
+  </div>
+
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <span>CardioShield</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="predict.html" class="nav-link">Predict Risk</a></li>
+        <li><a href="result.html" class="nav-link active">Results</a></li>
+        <li><a href="about.html" class="nav-link">About Project</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="icon-btn" id="historyDrawerBtn" title="Prediction History">
+          <i class="fas fa-history"></i>
+          <span class="badge-count" id="historyBadge" style="display:none;">0</span>
+        </button>
+        <button class="icon-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="resultContainer">
+    <div class="container results-wrapper">
+      
+      <!-- Main Risk Gauge & Summary Card -->
+      <div class="result-main-card">
+        
+        <!-- Risk Badge -->
+        <div class="risk-badge low" id="resultRiskBadge">
+          <i class="fas fa-shield-alt"></i> Calculating Risk...
+        </div>
+
+        <!-- SVG Animated Circular Radial Gauge Chart -->
+        <div class="gauge-chart-container">
+          <svg class="gauge-svg" viewBox="0 0 200 200">
+            <circle class="gauge-bg-circle" cx="100" cy="100" r="90"></circle>
+            <circle class="gauge-fill-circle" id="gaugeFillCircle" cx="100" cy="100" r="90"></circle>
+          </svg>
+          <div class="gauge-text-overlay">
+            <div class="gauge-percent" id="gaugePercentText">0%</div>
+            <div class="gauge-label">Heart Disease Risk</div>
+          </div>
+        </div>
+
+        <h2 class="result-summary-text" id="resultSummaryTitle">
+          Processing patient clinical biomarkers...
+        </h2>
+
+        <!-- Confidence Rating -->
+        <div class="confidence-bar-container">
+          <div class="confidence-text" id="confidenceRating">Calculating Model Confidence...</div>
+        </div>
+
+      </div>
+
+      <!-- Personalized Clinical Recommendations -->
+      <div class="recs-card">
+        <h3><i class="fas fa-user-nurse"></i> Personalized Clinical Guidance</h3>
+        <ul class="recs-list" id="recommendationsList">
+          <!-- Dynamic Recommendations -->
+        </ul>
+      </div>
+
+      <!-- Patient Input Parameter Summary -->
+      <div class="summary-table-card">
+        <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">
+          <i class="fas fa-clipboard-list"></i> Analyzed Medical Profile
+        </h3>
+        <div class="summary-grid" id="summaryGrid">
+          <!-- Dynamic Input Grid -->
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="results-action-bar">
+        <a href="predict.html" class="btn btn-outline">
+          <i class="fas fa-rotate-left"></i> Check Again
+        </a>
+        <button type="button" class="btn btn-primary" id="downloadPdfBtn">
+          <i class="fas fa-file-pdf"></i> Download PDF Report
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Prediction History Drawer -->
+  <div class="history-drawer" id="historyDrawer">
+    <div class="history-header">
+      <h3><i class="fas fa-history"></i> Prediction History</h3>
+      <button class="close-drawer-btn" id="closeDrawerBtn">&times;</button>
+    </div>
+    <div class="history-list" id="historyList"></div>
+    <div class="history-footer">
+      <button class="btn btn-outline" id="clearHistoryBtn" style="width: 100%; border-color: var(--risk-high); color: var(--risk-high);">
+        <i class="fas fa-trash-alt"></i> Clear All History
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="disclaimer-banner">
+        <i class="fas fa-exclamation-triangle"></i> <strong>Medical Disclaimer:</strong> CardioShield predictions are generated using Machine Learning models. This tool does not constitute medical diagnosis.
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 CardioShield Heart Disease Detection System.
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

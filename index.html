@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CardioShield | AI Heart Disease Prediction System</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top API Status Bar -->
+  <div class="api-status-banner">
+    <div class="container status-content">
+      <span class="status-dot" id="apiStatusDot"></span>
+      <span id="apiStatusText">Checking Flask API Connection...</span>
+    </div>
+  </div>
+
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <span>CardioShield</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="predict.html" class="nav-link">Predict Risk</a></li>
+        <li><a href="result.html" class="nav-link">Results</a></li>
+        <li><a href="about.html" class="nav-link">About Project</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="icon-btn" id="historyDrawerBtn" title="Prediction History">
+          <i class="fas fa-history"></i>
+          <span class="badge-count" id="historyBadge" style="display:none;">0</span>
+        </button>
+        <button class="icon-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <a href="predict.html" class="btn btn-primary" style="display: flex;">
+          <i class="fas fa-notes-medical"></i> Check Risk
+        </a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="container hero-section">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fas fa-microscope"></i> Machine Learning Healthcare Analytics
+        </div>
+        <h1 class="hero-title">
+          Early Heart Disease Detection Powered by <span>AI Intelligence</span>
+        </h1>
+        <p class="hero-subtitle">
+          Empowering individuals and healthcare professionals with instant, data-driven cardiovascular risk assessments using 11 key clinical biomarkers.
+        </p>
+        <div class="hero-buttons">
+          <a href="predict.html" class="btn btn-primary">
+            <i class="fas fa-heartbeat"></i> Check Your Heart Risk
+          </a>
+          <a href="about.html" class="btn btn-outline">
+            <i class="fas fa-info-circle"></i> Learn About ML Model
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-graphic">
+        <div class="cardio-graphic-container">
+          <svg class="heart-svg-anim" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" 
+                  fill="url(#heartGradient)"/>
+            <defs>
+              <linearGradient id="heartGradient" x1="2" y1="3" x2="22" y2="21" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#ef4444"/>
+                <stop offset="1" stop-color="#1e56a0"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <svg class="ecg-line-svg" viewBox="0 0 500 150">
+            <path class="pulse-line" d="M 0 75 L 120 75 L 140 30 L 160 120 L 180 10 L 200 140 L 220 75 L 500 75" 
+                  fill="none" stroke="#00a8cc" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Statistics -->
+    <section class="container stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="stat-number">92%+</div>
+        <div class="stat-label">Model ROC-AUC Accuracy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-stethoscope"></i></div>
+        <div class="stat-number">11</div>
+        <div class="stat-label">Clinical Parameters Analyzed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+        <div class="stat-number">&lt; 0.5s</div>
+        <div class="stat-label">Instant Inference Speed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-user-shield"></i></div>
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Private & Confidential</div>
+      </div>
+    </section>
+
+    <!-- Project Overview & Benefits -->
+    <section class="container" style="margin-bottom: 4rem;">
+      <div class="section-header">
+        <span class="section-tag">Clinical Advantages</span>
+        <h2 class="section-title">Why Early Heart Disease Screening Matters</h2>
+        <p class="section-description">
+          Cardiovascular diseases remain the leading cause of global mortality. Early predictive screening allows for timely interventions, lifestyle modifications, and proactive clinical care.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-heart-pulse"></i></div>
+          <h3>Proactive Risk Assessment</h3>
+          <p>Evaluates blood pressure, cholesterol, resting ECG, max heart rate, and ST slope to identify early signs of ischemia before severe symptoms occur.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-brain"></i></div>
+          <h3>Machine Learning Insight</h3>
+          <p>Powered by Scikit-Learn Logistic Regression and DictVectorizer trained on clinical heart disease datasets for reliable probability scoring.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-file-medical-alt"></i></div>
+          <h3>Downloadable Reports</h3>
+          <p>Export your comprehensive risk visualization report with personalized recommendations directly to PDF for doctor consultations.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-database"></i></div>
+          <h3>Local History Tracking</h3>
+          <p>Your previous risk assessments are automatically stored safely inside your browser's local storage for easy progress comparison.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Health Tips Section -->
+    <section class="container tips-section">
+      <div class="section-header" style="margin-bottom: 2rem;">
+        <span class="section-tag">Cardiovascular Wellness</span>
+        <h2 class="section-title">Essential Heart Health Guidelines</h2>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-icon"><i class="fas fa-apple-whole"></i></div>
+          <div class="tip-content">
+            <h4>Heart-Healthy Nutrition</h4>
+            <p>Prioritize whole grains, lean proteins, omega-3 fatty acids, and reduce saturated fats and refined sodium.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon"><i class="fas fa-person-walking"></i></div>
+          <div class="tip-content">
+            <h4>Regular Aerobic Activity</h4>
+            <p>Aim for at least 150 minutes of moderate-intensity aerobic exercise every week to maintain vascular elasticity.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon"><i class="fas fa-gauge-high"></i></div>
+          <div class="tip-content">
+            <h4>Monitor Blood Pressure</h4>
+            <p>Keep resting blood pressure below 120/80 mm Hg and conduct routine lipid panel screenings.</p>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon"><i class="fas fa-bed"></i></div>
+          <div class="tip-content">
+            <h4>Stress & Sleep Control</h4>
+            <p>Get 7-9 hours of restorative sleep and practice mindfulness to control cortisol and resting heart rate.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="container faq-container">
+      <div class="section-header">
+        <span class="section-tag">Got Questions?</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>How does the CardioShield prediction model calculate heart risk?</span>
+          <i class="fas fa-chevron-down faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>The system utilizes a trained Scikit-Learn Logistic Regression model with DictVectorizer feature encoding. It analyzes your demographic and clinical biomarker inputs (age, sex, chest pain type, BP, cholesterol, max heart rate, ST slope, etc.) to estimate the statistical probability of heart disease.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>What parameters do I need to prepare before filling out the form?</span>
+          <i class="fas fa-chevron-down faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>You will need standard medical metrics including Age, Sex, Resting Blood Pressure (mm Hg), Cholesterol (mg/dl), Fasting Blood Sugar, Resting ECG result, Maximum Heart Rate achieved, Exercise Angina status, and ST depression (Oldpeak).</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Is my medical information stored on a server or shared?</span>
+          <i class="fas fa-chevron-down faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>No. Data sent to the Flask backend is processed transiently strictly for inference calculation. Your prediction history is stored exclusively in your browser's private localStorage and never uploaded or shared.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Can this tool replace a professional medical diagnosis?</span>
+          <i class="fas fa-chevron-down faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>No. CardioShield is an educational and screening support tool. It is not a substitute for professional clinical diagnosis by a licensed cardiologist or doctor.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Support CTA -->
+    <section class="container">
+      <div class="contact-card">
+        <h2>Ready to Evaluate Your Cardiovascular Health?</h2>
+        <p>Complete the quick clinical questionnaire to receive your personalized risk breakdown and actionable medical recommendations in seconds.</p>
+        <a href="predict.html" class="btn btn-primary" style="background: white; color: var(--primary-dark) !important;">
+          <i class="fas fa-clipboard-check"></i> Start Risk Assessment Now
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Prediction History Drawer -->
+  <div class="history-drawer" id="historyDrawer">
+    <div class="history-header">
+      <h3><i class="fas fa-history"></i> Prediction History</h3>
+      <button class="close-drawer-btn" id="closeDrawerBtn">&times;</button>
+    </div>
+    <div class="history-list" id="historyList">
+      <!-- Dynamic History Items -->
+    </div>
+    <div class="history-footer">
+      <button class="btn btn-outline" id="clearHistoryBtn" style="width: 100%; border-color: var(--risk-high); color: var(--risk-high);">
+        <i class="fas fa-trash-alt"></i> Clear All History
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="disclaimer-banner">
+        <i class="fas fa-exclamation-triangle"></i> <strong>Medical Disclaimer:</strong> CardioShield is an artificial intelligence decision-support tool meant strictly for informational and educational purposes. Always consult a licensed medical professional for clinical diagnosis.
+      </div>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon"><i class="fas fa-heartbeat"></i></div>
+            <span>CardioShield</span>
+          </div>
+          <p>Advanced Machine Learning System for Early Heart Disease Risk Assessment & Predictive Healthcare Analytics.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="predict.html">Predict Risk</a></li>
+            <li><a href="result.html">Results & Analysis</a></li>
+            <li><a href="about.html">About Model & Stack</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Developer</h4>
+          <ul class="footer-links">
+            <li><strong>Rajesh Kommu</strong></li>
+            <li><a href="https://github.com/Rajesh-22114" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/rajesh-kommu" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+            <li><a href="about.html">About Author</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2026 CardioShield Heart Disease Detection System. Developed by Rajesh Kommu.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>

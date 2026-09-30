@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinical Risk Assessment Form | CardioShield</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top API Status Bar -->
+  <div class="api-status-banner">
+    <div class="container status-content">
+      <span class="status-dot" id="apiStatusDot"></span>
+      <span id="apiStatusText">Checking Flask API Connection...</span>
+    </div>
+  </div>
+
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <span>CardioShield</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="predict.html" class="nav-link active">Predict Risk</a></li>
+        <li><a href="result.html" class="nav-link">Results</a></li>
+        <li><a href="about.html" class="nav-link">About Project</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="icon-btn" id="historyDrawerBtn" title="Prediction History">
+          <i class="fas fa-history"></i>
+          <span class="badge-count" id="historyBadge" style="display:none;">0</span>
+        </button>
+        <button class="icon-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container form-container-wrapper">
+      
+      <!-- Form Header -->
+      <div class="form-header-card">
+        <div class="form-header-info">
+          <h1>Cardiovascular Risk Calculator</h1>
+          <p>Provide medical measurements below for ML risk prediction analysis.</p>
+        </div>
+        <div class="preset-buttons">
+          <button type="button" class="btn-preset btn-preset-low" id="presetLowBtn">
+            <i class="fas fa-check-circle"></i> Preset: Low Risk
+          </button>
+          <button type="button" class="btn-preset btn-preset-high" id="presetHighBtn">
+            <i class="fas fa-exclamation-triangle"></i> Preset: High Risk
+          </button>
+        </div>
+      </div>
+
+      <!-- Clinical Input Form -->
+      <form id="predictForm" class="clinical-form" novalidate>
+        
+        <!-- SECTION 1: Patient Demographics -->
+        <div class="form-section-card">
+          <h2 class="section-card-title">
+            <i class="fas fa-user-check"></i> 1. Demographics & Basic Information
+          </h2>
+          <div class="fields-grid">
+            
+            <!-- Field: Age -->
+            <div class="form-group">
+              <div class="label-wrapper">
+                <label class="form-label" for="age">Age (Years)</label>
+              </div>
+              <div class="input-container">
+                <i class="fas fa-user input-icon"></i>
+                <input type="number" id="age" name="age" class="form-control" placeholder="e.g. 54" min="18" max="120" required value="49">
+              </div>
+              <span class="error-text">Please enter a valid age (18 - 120).</span>
+            </div>
+
+            <!-- Field: Sex -->
+            <div class="form-group">
+              <div class="label-wrapper">
+                <label class="form-label" for="sex">Biological Sex</label>
+              </div>
+              <div class="input-container">
+                <i class="fas fa-venus-mars input-icon"></i>
+                <select id="sex" name="sex" class="form-control" required>
+                  <option value="M">Male (M)</option>
+                  <option value="F" selected>Female (F)</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECTION 2: Vital Signs & Metabolic Metrics -->
+        <div class="form-section-card">
+          <h2 class="section-card-title">
+            <i class="fas fa-heart-pulse"></i> 2. Vital Signs & Metabolism
+          </h2>
+          <div class="fields-grid">
+            
+            <!-- Field: Resting BP -->
+            <div class="form-group">
+              <div class="label-wrapper">
+                <label class="form-label" for="restingbp">Resting Blood Pressure</label>
+                <button type="button" class="info-tooltip-btn" data-field="restingbp" aria-label="Info"><i class="fas fa-question-circle"></i></button>
+                <div class="tooltip-box" id="tooltip-restingbp">Resting BP in mm Hg upon clinical admission. Normal resting BP is under 120 mm Hg.</div>
+              </div>
+              <div class="input-container">
+                <i class="fas fa-gauge-high input-icon"></i>
+                <input type="number" id="restingbp" name="restingbp" class="form-control" placeholder="mm Hg (e.g. 130)" min="70" max="240" required value="160">
+              </div>
+              <span class="error-text">Enter resting BP between 70 and 240 mm Hg.</span>
+            </div>
+
+            <!-- Field: Serum Cholesterol -->
+            <div class="form-group">
+              <div class="label-wrapper">
+                <label class="form-label" for="cholesterol">Serum Cholesterol</label>
+                <button type="button" class="info-tooltip-btn" data-field="cholesterol" aria-label="Info"><i class="fas fa-question-circle"></i></button>
+                <div class="tooltip-box" id="tooltip-cholesterol">Serum Cholesterol level measured in mg/dl. Desirable cholesterol level is under 200 mg/dl.</div>
+              </div>
+              <div class="input-container">
+                <i class="fas fa-vial input-icon"></i>
+                <input type="number" id="cholesterol" name="cholesterol" class="form-control" placeholder="mg/dl (e.g. 210)" min="100" max="600" required value="180">
+              </div>
+              <span class="error-text">Enter serum cholesterol between 100 and 600 mg/dl.</span>
+            </div>
+
+            <!-- Field: Fasting Blood Sugar -->
+            <div class="form-group">
+              <div class="label-wrapper">
+                <label class="form-label" for="fastingbs">Fasting Blood Sugar</label>
+                <button type="button" class="info-tooltip-btn" data-field="fastingbs" aria-label="Info"><i class="fas fa-question-circle"></i></button>
+                <div class="tooltip-box" id="tooltip-fastingbs">Fasting Blood Sugar test result. Select '> 120 mg/dl' if elevated blood glucose is present.</div>
+              </div>
+              <div class="input-container">
+                <i class="fas fa-cubes-stacked input-icon"></i>
+                <select id="fastingbs" name="fastingbs" class="form-control" required>
+                  <option value="0" selected>&lt;= 120 mg/dl (Normal / 0)</option>
+                  <option value="1">&gt; 120 mg/dl (Elevated / 1)</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECTION 3: Cardiac & ECG Evaluation -->
+        <div class="form-section-card">
+          <h2 class="section-card-title">
+            <i class="fas fa-wave-square"></i> 3. Cardiac Symptoms & ECG Measurements
+          </h2>
+          <div class="fields-grid">
+            
+            <!-- Field: Chest Pain Type -->
+            <div class="form-group">
+              <div class="label-wrapper">
+                <label class="form-label" for="chestpaintype">Chest Pain Type</label>
+                <button type="button" class="info-tooltip-btn" data-field="chestpaintype" aria-label="Info"><i class="fas fa-question-circle"></i></button>
+                <div class="tooltip-box" id="tooltip-chestpaintype">ATA: Atypical Angina, NAP: Non-Anginal Pain, ASY: Asymptomatic, TA: Typical Angina.</div>
+              </div>
+              <div class="input-container">
+                <i class="fas fa-heart-circle-exclamation input-icon"></i>
+                <select id="chestpaintype" name="chestpaintype" class="form-control" required>
+                  <option value="NAP" selected>NAP (Non-Anginal Pain)</option>
+                  <option value="ATA">ATA (Atypical Angina)</option>
+                  <option value="ASY">ASY (Asymptomatic)</option>
+                  <option value="TA">TA (Typical Angina)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Field: Resting ECG -->
+            <div class="form-group">
+              <div class="label-wrapper">
+                <label class="form-label" for="restingecg">Resting ECG Results</label>
+                <button type="button" class="info-tooltip-btn" data-field="restingecg" aria-label="Info"><i class="fas fa-question-circle"></i></button>
+                <div class="tooltip-box" id="tooltip-restingecg">Normal: Normal ECG, ST: ST-T wave abnormality, LVH: Left Ventricular Hypertrophy.</div>
+              </div>
+              <div class="input-container">
+                <i class="fas fa-chart-area input-icon"></i>
+                <select id="restingecg" name="restingecg" class="form-control" required>
+                  <option value="Normal" selected>Normal</option>
+                  <option value="ST">ST (ST-T Wave Abnormality)</option>
+                  <option value="LVH">LVH (Left Ventricular Hypertrophy)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Field: Max Heart Rate -->
+            <div class="form-group">
+              <div class="label-wrapper">
+                <label class="form-label" for="maxhr">Maximum Heart Rate</label>
+                <button type="button" class="info-tooltip-btn" data-field="maxhr" aria-label="Info"><i class="fas fa-question-circle"></i></button>
+                <div class="tooltip-box" id="tooltip-maxhr">Peak heart rate achieved during physical stress exertion testing (bpm).</div>
+              </div>
+              <div class="input-container">
+                <i class="fas fa-person-running input-icon"></i>
+                <input type="number" id="maxhr" name="maxhr" class="form-control" placeholder="bpm (e.g. 150)" min="50" max="230" required value="156">
+              </div>
+              <span class="error-text">Enter heart rate between 50 and 230 bpm.</span>
+            </div>
+
+            <!-- Field: Exercise Induced Angina -->
+            <div class="form-group">
+              <div class="label-wrapper">
+                <label class="form-label" for="exerciseangina">Exercise Induced Angina</label>
+                <button type="button" class="info-tooltip-btn" data-field="exerciseangina" aria-label="Info"><i class="fas fa-question-circle"></i></button>
+                <div class="tooltip-box" id="tooltip-exerciseangina">Indicates whether physical exercise induces chest pain or ischemic tightness.</div>
+              </div>
+              <div class="input-container">
+                <i class="fas fa-person-falling-burst input-icon"></i>
+                <select id="exerciseangina" name="exerciseangina" class="form-control" required>
+                  <option value="N" selected>No (N)</option>
+                  <option value="Y">Yes (Y)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Field: Old Peak -->
+            <div class="form-group">
+              <div class="label-wrapper">
+                <label class="form-label" for="oldpeak">Oldpeak (ST Depression)</label>
+                <button type="button" class="info-tooltip-btn" data-field="oldpeak" aria-label="Info"><i class="fas fa-question-circle"></i></button>
+                <div class="tooltip-box" id="tooltip-oldpeak">ST depression induced by exercise relative to rest (numeric value e.g. 0.0 to 6.0).</div>
+              </div>
+              <div class="input-container">
+                <i class="fas fa-chart-line input-icon"></i>
+                <input type="number" step="0.1" id="oldpeak" name="oldpeak" class="form-control" placeholder="e.g. 1.0" min="0" max="10" required value="1.0">
+              </div>
+              <span class="error-text">Enter oldpeak value between 0.0 and 10.0.</span>
+            </div>
+
+            <!-- Field: ST Slope -->
+            <div class="form-group">
+              <div class="label-wrapper">
+                <label class="form-label" for="st_slope">ST Segment Slope</label>
+                <button type="button" class="info-tooltip-btn" data-field="st_slope" aria-label="Info"><i class="fas fa-question-circle"></i></button>
+                <div class="tooltip-box" id="tooltip-st_slope">Slope of peak exercise ST segment (Up: Upsloping, Flat: Flat, Down: Downsloping).</div>
+              </div>
+              <div class="input-container">
+                <i class="fas fa-arrow-trend-up input-icon"></i>
+                <select id="st_slope" name="st_slope" class="form-control" required>
+                  <option value="Flat" selected>Flat</option>
+                  <option value="Up">Up (Upsloping)</option>
+                  <option value="Down">Down (Downsloping)</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECTION 4: Additional Clinical Markers -->
+        <div class="form-section-card">
+          <h2 class="section-card-title">
+            <i class="fas fa-flask"></i> 4. Major Vessels & Thalassemia Indicators
+          </h2>
+          <div class="fields-grid">
+            
+            <!-- Field: Major Vessels CA -->
+            <div class="form-group">
+              <div class="label-wrapper">
+                <label class="form-label" for="ca">Major Vessels (CA)</label>
+                <button type="button" class="info-tooltip-btn" data-field="ca" aria-label="Info"><i class="fas fa-question-circle"></i></button>
+                <div class="tooltip-box" id="tooltip-ca">Number of major blood vessels (0-3) colored by fluoroscopy.</div>
+              </div>
+              <div class="input-container">
+                <i class="fas fa-dna input-icon"></i>
+                <select id="ca" name="ca" class="form-control">
+                  <option value="0" selected>0 Vessels</option>
+                  <option value="1">1 Vessel</option>
+                  <option value="2">2 Vessels</option>
+                  <option value="3">3 Vessels</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Field: Thalassemia -->
+            <div class="form-group">
+              <div class="label-wrapper">
+                <label class="form-label" for="thal">Thalassemia Classification</label>
+                <button type="button" class="info-tooltip-btn" data-field="thal" aria-label="Info"><i class="fas fa-question-circle"></i></button>
+                <div class="tooltip-box" id="tooltip-thal">Thalassemia blood defect classification (Normal, Fixed Defect, Reversible Defect).</div>
+              </div>
+              <div class="input-container">
+                <i class="fas fa-microscope input-icon"></i>
+                <select id="thal" name="thal" class="form-control">
+                  <option value="Normal" selected>Normal</option>
+                  <option value="Fixed Defect">Fixed Defect</option>
+                  <option value="Reversible Defect">Reversible Defect</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button type="reset" class="btn btn-secondary">
+            <i class="fas fa-rotate-left"></i> Reset Form
+          </button>
+          <button type="submit" class="btn btn-primary submit-btn" id="submitBtn">
+            <span class="loading-spinner" id="submitSpinner"></span>
+            <span id="submitBtnText"><i class="fas fa-calculator"></i> Analyze Heart Risk</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- Prediction History Drawer -->
+  <div class="history-drawer" id="historyDrawer">
+    <div class="history-header">
+      <h3><i class="fas fa-history"></i> Prediction History</h3>
+      <button class="close-drawer-btn" id="closeDrawerBtn">&times;</button>
+    </div>
+    <div class="history-list" id="historyList"></div>
+    <div class="history-footer">
+      <button class="btn btn-outline" id="clearHistoryBtn" style="width: 100%; border-color: var(--risk-high); color: var(--risk-high);">
+        <i class="fas fa-trash-alt"></i> Clear All History
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="disclaimer-banner">
+        <i class="fas fa-exclamation-triangle"></i> <strong>Medical Disclaimer:</strong> CardioShield predictions are generated using Machine Learning models. This tool does not constitute medical diagnosis.
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 CardioShield Heart Disease Detection System.
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
