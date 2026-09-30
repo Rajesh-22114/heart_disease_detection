@@ -2,6 +2,8 @@
 
 CardioShield is a modern, responsive healthcare web application integrated with a Flask Machine Learning API for predicting heart disease risk based on clinical biomarkers.
 
+🌐 **Live Server / Online Demo**: [https://rajesh-22114.github.io/heart_disease_detection/](https://rajesh-22114.github.io/heart_disease_detection/)
+
 ---
 
 ## 📂 Project Structure
@@ -42,6 +44,13 @@ python app.py
 
 The application will be live at:
 👉 `http://localhost:8888`
+
+---
+
+## 🌐 Live Server / Online Application
+
+You can access and test the live application interface hosted on GitHub Pages:
+👉 **[https://rajesh-22114.github.io/heart_disease_detection/](https://rajesh-22114.github.io/heart_disease_detection/)**
 
 ---
 
